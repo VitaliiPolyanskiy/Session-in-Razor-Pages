@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>Авторизация</title>
+</head>
+<body>
+    @{
+        <div>
+            Здравствуйте, @this.HttpContext.Session.GetString("login")
+        </div>
+    }
+
+    <form method="post">
+        <div>
+            <input type="submit" value="Выйти" />
+        </div>
+    </form>
+    <div>
+        <a href="Create">На страницу авторизации</a>
+    </div>
+</body>
+</html>
+
