@@ -1,53 +1,58 @@
 ﻿@page
 @model Session.Pages.CreateModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
-
-<html>
+<html lang="uk">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <title>Авторизация</title>
+    <title>Авторизація</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
-    @using (Html.BeginForm())
-    {
-        <div>
-            @if (this.HttpContext.Session.GetString("login") == null)
-            {
-                @Html.ValidationSummary(true, "")
-                <div>
-                    @Html.LabelFor(model => model.login.UserName)
-                    <div>
-                        @Html.EditorFor(model => model.login.UserName)
-                        @Html.ValidationMessageFor(model => model.login.UserName, "")
-                    </div>
-                </div>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Авторизація</h3>
 
-                <div>
-                    @Html.LabelFor(model => model.login.Password)
-                    <div>
-                        @Html.PasswordFor(model => model.login.Password)
-                        @Html.ValidationMessageFor(model => model.login.Password, "")
-                    </div>
-                </div>
+                        @if (HttpContext.Session.GetString("login") == null)
+                        {
+                            <form method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                <div>
-                    <div>
-                        <input type="submit" value="Войти" />
+                                <div class="mb-3">
+                                    <label asp-for="LoginModel.UserName" class="form-label"></label>
+                                    <input asp-for="LoginModel.UserName" class="form-control" />
+                                    <span asp-validation-for="LoginModel.UserName" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="LoginModel.Password" class="form-label"></label>
+                                    <input asp-for="LoginModel.Password" type="password" class="form-control" />
+                                    <span asp-validation-for="LoginModel.Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Увійти</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <div class="alert alert-success">
+                                    Вводити логін та пароль вже не потрібно!
+                                </div>
+                                <a href="/Index" class="btn btn-outline-primary">На головну сторінку</a>
+                            </div>
+                        }
                     </div>
                 </div>
-            }
-            else
-            {
-                <div>
-                    <div>
-                        Вводить логин и пароль уже не нужно!
-                    </div>
-                    <a href="Index">На главную страницу</a>
-                </div>
-            }
+            </div>
         </div>
-    }
+    </div>
 </body>
 </html>

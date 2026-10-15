@@ -1,20 +1,20 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Все сессии работают поверх объекта IDistributedCache, и ASP.NET Core 
-// предоставляет встроенную реализацию IDistributedCache
+// Усі сесії працюють поверх об'єкта IDistributedCache, і ASP.NET Core 
+// надає вбудовану реалізацію IDistributedCache
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(10); // Длительность сеанса (тайм-аут завершения сеанса)
-    options.Cookie.Name = "Session"; // Каждая сессия имеет свой идентификатор, который сохраняется в куках.
-
+    options.IdleTimeout = TimeSpan.FromMinutes(10); // Тривалість сеансу (тайм-аут завершення сеансу)
+    options.Cookie.Name = "Session"; // Кожна сесія має свій ідентифікатор, який зберігається в кукі.
 });
-// Add services to the container.
+
+// Додаємо сервіси Razor Pages до контейнера
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-app.UseSession();   // Добавляем middleware-компонент для работы с сессиями
+app.UseSession(); // Додаємо middleware-компонент для роботи із сесіями
 
 app.MapRazorPages();
 

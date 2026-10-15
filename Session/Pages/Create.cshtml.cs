@@ -2,26 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Session.Models;
 
-namespace Session.Pages
+namespace Session.Pages;
+
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    [BindProperty]
+    public Login LoginModel { get; set; } = default!;
+
+    public IActionResult OnGet() => Page();
+
+    public IActionResult OnPost()
     {
-        [BindProperty]
-        public Login login { get; set; } = default!;
-
-        public IActionResult OnGet()
+        if (ModelState.IsValid && LoginModel.UserName != null)
         {
-            return Page();
+            HttpContext.Session.SetString("login", LoginModel.UserName); // створення сесійної змінної
+            return RedirectToPage("Index");
         }
-
-        public IActionResult OnPost()
-        {
-            if (ModelState.IsValid)
-            {
-                HttpContext.Session.SetString("login", login.UserName); // создание сессионной переменной
-                return RedirectToPage("Index");
-            }
-            return Page();
-        }
+        return Page();
     }
 }

@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Session.Pages
+namespace Session.Pages;
+
+public class LogoutModel : PageModel
 {
-    public class LogoutModel : PageModel
+    public IActionResult OnGet()
     {
-        public IActionResult OnGet()
-        {
-            HttpContext.Session.Clear(); // очищается сессия
-            return RedirectToPage("Create");
-        }
+        HttpContext.Session.Clear(); // очищується сесія
+        return RedirectToPage("Create");
     }
 }

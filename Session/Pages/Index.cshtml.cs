@@ -1,21 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Session.Pages
+namespace Session.Pages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    public IActionResult OnGet()
     {
-        public IActionResult OnGet()
+        if (HttpContext.Session.GetString("login") == null)
         {
-            if (HttpContext.Session.GetString("login") == null)
-            {
-                return RedirectToPage("Create");
-            }
-            return Page();
+            return RedirectToPage("Create");
         }
-        public IActionResult OnPost()
-        {
-            return RedirectToPage("Logout");
-        }
+        return Page();
     }
+
+    public IActionResult OnPost() => RedirectToPage("Logout");
 }
